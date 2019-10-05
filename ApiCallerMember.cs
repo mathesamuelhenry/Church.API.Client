@@ -12,37 +12,45 @@ namespace Church.API.Client
         {
         }
 
-        public List<Contributor> GetContributors()
+        public List<Contributor> GetMembers()
         {
             string url = $"api/Member";
 
-            var contributorList = ApiHelper.CallGetWebApi<List<Contributor>>(url);
+            var memberList = ApiHelper.CallGetWebApi<List<Contributor>>(url);
 
-            return contributorList;
+            return memberList;
         }
 
-        public Contributor GetContributorById(int id = 0)
+        public Contributor GetMemberById(int id = 0)
         {
             if (id == default(int))
             {
                 throw new Exception("Please pass a valid id");
             }
 
-            string url = $"api/Contributor/{id}";
+            string url = $"api/Member/{id}";
 
-            var contributor = ApiHelper.CallGetWebApi<Contributor>(url);
+            var member = ApiHelper.CallGetWebApi<Contributor>(url);
 
-            return contributor;
+            return member;
         }
 
         public List<string> GetAllFullNames()
         {
-            string url = $"api/Contributor/GetFullNames";
+            string url = $"api/Member/GetFullNames";
 
-            var contributorList = ApiHelper.CallGetWebApi<List<string>>(url);
+            var memberList = ApiHelper.CallGetWebApi<List<string>>(url);
 
-            return contributorList;
+            return memberList;
         }
 
+        public Contributor DeleteMember(int id)
+        {
+            string url = $"api/Member/{id}";
+
+            var member = ApiHelper.CallDeleteWebApi<Contributor>(url);
+
+            return member;
+        }
     }
 }

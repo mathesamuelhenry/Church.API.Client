@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -34,11 +35,56 @@ namespace Church.API.Client
                 }
                 else
                 {
-                    // var resultMessage = JsonConvert.DeserializeObject<Message>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    // throw new Exception(resultMessage.message);
-                    throw new Exception("");
+                    var message = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(message);
                 }
             }
+        }
+
+        public static string CallGetWebApiResultContent(string url)
+        {
+            using (HttpResponseMessage response = ApiHelper.ApiClient.GetAsync(url).Result)
+            {
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        public static T CallDeleteWebApi<T>(string url)
+        {
+            using (HttpResponseMessage response = ApiHelper.ApiClient.DeleteAsync(url).Result)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<T>(data);
+                }
+                else
+                {
+                    var message = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(message);
+                }
+            }
+        }
+
+        public static T CallPostWebApi<T>(string url, T value)
+        {
+            using (HttpResponseMessage response = ApiClient.PostAsJsonAsync(url, value).Result)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<T>(data);
+                }
+                else
+                {
+                    var message = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(message);
+                }
+            }
+        }
+
+        public static void GenerateException(int statusCode, string message)
+        {
         }
     }
 }
