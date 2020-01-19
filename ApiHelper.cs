@@ -83,6 +83,23 @@ namespace Church.API.Client
             }
         }
 
+        public static TOut CallPostWebApi<TIn, TOut>(string url, TIn value)
+        {
+            using (HttpResponseMessage response = ApiClient.PostAsJsonAsync(url, value).Result)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<TOut>(data);
+                }
+                else
+                {
+                    var message = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(message);
+                }
+            }
+        }
+
         public static void GenerateException(int statusCode, string message)
         {
         }
