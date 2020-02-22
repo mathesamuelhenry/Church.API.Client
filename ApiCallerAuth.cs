@@ -24,11 +24,11 @@ namespace Church.API.Client
             return userInfo;
         }
 
-        public Users UserAuthenticate(SignIn signInRequest)
+        public Users UserAuthenticate(SignInRequest signInRequest)
         {
             string url = $"api/Users/Authenticate";
 
-            var userInfo = ApiHelper.CallPostWebApi<SignIn, Users>(url, signInRequest);
+            var userInfo = ApiHelper.CallPostWebApi<SignInRequest, Users>(url, signInRequest);
 
             return userInfo;
         }
