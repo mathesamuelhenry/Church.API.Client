@@ -15,7 +15,7 @@ namespace Church.API.Client
 
         }
 
-        public Users RegisterUser(RegisterRequest userRequest)
+        /*public Users RegisterUser(RegisterRequest userRequest)
         {
             string url = $"api/Users/Register";
 
@@ -31,6 +31,6 @@ namespace Church.API.Client
             var userInfo = ApiHelper.CallPostWebApi<SignInRequest, Users>(url, signInRequest);
 
             return userInfo;
-        }
+        }*/
     }
 }

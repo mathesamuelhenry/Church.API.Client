@@ -22,6 +22,15 @@ namespace Church.API.Client
             return organizationCategoryList;
         }
 
+        public List<OrganizationCategory> GetCategoryListByOrganizationId(int orgId)
+        {
+            string url = $"api/OrganizationCategories/GetCategoryListByOrganizationId/{orgId}";
+
+            var organizationCategoryList = ApiHelper.CallGetWebApi<List<OrganizationCategory>>(url);
+
+            return organizationCategoryList;
+        }
+
         public OrganizationCategory GetOrganizationCategoryById(int id)
         {
             string url = $"api/OrganizationCategories/{id}";

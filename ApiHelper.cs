@@ -85,7 +85,10 @@ namespace Church.API.Client
 
         public static TOut CallPostWebApi<TIn, TOut>(string url, TIn value)
         {
-            using (HttpResponseMessage response = ApiClient.PostAsJsonAsync(url, value).Result)
+            var inputData = JsonConvert.SerializeObject(value);
+            var content = new StringContent(inputData, Encoding.UTF8, "application/json");
+
+            using (HttpResponseMessage response = ApiClient.PostAsync(url, content).Result)
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -102,7 +105,10 @@ namespace Church.API.Client
 
         public static TOut CallPutWebApi<TIn, TOut>(string url, TIn value)
         {
-            using (HttpResponseMessage response = ApiClient.PutAsJsonAsync(url, value).Result)
+            var inputData = JsonConvert.SerializeObject(value);
+            var content = new StringContent(inputData, Encoding.UTF8, "application/json");
+
+            using (HttpResponseMessage response = ApiClient.PutAsJsonAsync(url, content).Result)
             {
                 if (response.IsSuccessStatusCode)
                 {
